@@ -1,0 +1,1 @@
+web: python manage.py migrate && gunicorn shopitaway.wsgi --log-file -
