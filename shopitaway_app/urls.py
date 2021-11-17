@@ -25,6 +25,10 @@ urlpatterns = [
     path('user/register/', views.register),
     path('user/login/', views.login),
     path('user/items', views.item),
-    path('user/itemcount',views.itemcount)
-
+    path('user/itemcount',views.itemcount),
+    path('user/postitem',views.postitem),
+    path('user/updateitem',views.updateitem),
+    path('user/deleteitem',views.deleteitem),
+    path('user/assignotp',views.assignOTP),
+    path('user/verifyotp',views.verifyOTP)
 ]
