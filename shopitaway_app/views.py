@@ -99,6 +99,12 @@ def login(request):
 
 @api_view(['POST'])
 def item(request):
+	"""
+	Get all items of a specific type
+	{
+		"itype": "fruits",
+	}
+	"""
 
 	serializer = itemTypeSerializer(data = request.data)
 
@@ -125,6 +131,10 @@ def item(request):
 
 @api_view(['GET'])
 def itemcount(request):
+	"""
+	Get all items 
+
+	"""
 	try:
 		dataref = db.collection(u'items').get()
 		idlist = []
@@ -146,34 +156,23 @@ def itemcount(request):
 # @api_view(['GET'])
 # def otp(request):
 # 	otp = random.randrange(1000,9999)
-@api_view(['POST'])
-def item(request):
 
-	serializer = itemTypeSerializer(data = request.data)
-
-	if serializer.is_valid():
-		itemtype = serializer.data['itype']
-
-		try:
-			dataref = db.collection(u'items').where(u'type',u'==',itemtype).get()
-			idlist = []
-			for i in dataref:
-				idlist.append(i.id)
-			
-			itemsinfo = []
-			for i in idlist:
-				datadict = db.collection(u'items').document(i).get().to_dict()
-				itemsinfo.append(datadict)
-			
-			return Response({"message": "Success", "list": itemsinfo}, status = status.HTTP_200_OK)
-
-		except Exception as e:
-			return Response({"message": "Invalid type"}, status = status.HTTP_401_UNAUTHORIZED)
-
-	return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def postitem(request):
+	"""
+	Post items
+	{
+		"buycount": "125",
+		"description": "Apples are the ideal fruit to eat at any time, having a positive role in the achievement of nourish balance. ",
+		"name": "Apples",
+		"type": "fruits",
+		"image" "https://shopitaway-items.s3.eu-gb.cloud-object-storage.appdomain.cloud/items/apples.jpg",
+		"stock": "12",
+		"price": "200"
+
+	}
+	"""
 
 	serializer = postitemSerializer(data = request.data)
 
@@ -200,6 +199,18 @@ def postitem(request):
 @api_view(['POST'])
 def updateitem(request):
 
+	"""
+	Update items
+	{
+		"id": "7L8q5PnW1VjxwuSkQ3Wk",
+		"description": "Apples are the ideal fruit to eat at any time, having a positive role in the achievement of nourish balance. ",
+		"name": "Apples",
+		"stock": "12",
+		"price": "200"
+
+	}
+	"""
+	
 	serializer = updateitemSerializer(data = request.data)
 
 	if serializer.is_valid():
@@ -228,6 +239,12 @@ def updateitem(request):
 
 @api_view(['POST'])
 def deleteitem(request):
+	"""
+	Delete item
+	{
+		"id": "7L8q5PnW1VjxwuSkQ3Wk",
+	}
+	"""
 
 	serializer = idSerializer(data = request.data)
 
@@ -244,6 +261,12 @@ def deleteitem(request):
 
 @api_view(['POST'])
 def assignOTP(request):
+	"""
+	Assign OTP to users
+	{
+		"id": "7L8q5PnW1VjxwuSkQ3Wk",
+	}
+	"""
 
 	serializer = idSerializer(data = request.data)
 
@@ -264,6 +287,13 @@ def assignOTP(request):
 
 @api_view(['POST'])
 def verifyOTP(request):
+	"""
+	Assign OTP to users
+	{
+		"id": "7L8q5PnW1VjxwuSkQ3Wk",
+		"otp": "858798"
+	}
+	"""
 	serializer = otpSerializer(data = request.data)
 	if serializer.is_valid():
 		try:

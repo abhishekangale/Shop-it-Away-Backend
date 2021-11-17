@@ -12,7 +12,7 @@ schema_view = get_schema_view(
     openapi.Info(
         title="ShopItAway APIs",
         default_version='v1',
-        description="Welcome to the world of coding",
+        description="Backend API endpoint for Shop-it-Away Project.",
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
